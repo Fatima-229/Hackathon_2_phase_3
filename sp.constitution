@@ -1,0 +1,37 @@
+Project: Todo Full-Stack Web Application — Phase III: AI Chatbot
+
+Core principles:
+- Spec-first, agentic development workflow (no manual coding)
+- Stateless backend architecture (no in-memory state)
+- All task operations must be performed via MCP tools
+- Conversation history and memory stored in database
+- AI agent decides intent, backend orchestrates requests only
+- User isolation and authentication enforced for all operations
+- Error handling in human-friendly language only
+- Confirmation messages for all task mutations
+
+Key standards:
+- All CRUD operations for tasks must go through MCP tools
+- Chat endpoint must persist conversation and messages in database
+- AI agent must never hallucinate task IDs or mutate tasks without tool calls
+- Frontend must be dark-mode, responsive, and mobile-first
+- All requests must be authenticated with Better Auth
+
+Constraints:
+- FastAPI backend must remain stateless
+- Server holds no conversation state in memory
+- All frontend task management via ChatKit interface
+- MCP tools exposed: add_task, list_tasks, complete_task, delete_task, update_task
+- Database models: Task, Conversation, Message
+- Chat endpoint: POST /api/{user_id}/chat
+- All conversation context must be stored and retrieved from the database
+- No features beyond spec-4 are allowed
+
+Success criteria:
+- AI agent correctly maps natural language commands to MCP tool calls
+- Chat maintains context across requests
+- All CRUD operations are auditable and confirmable
+- Frontend responds correctly to user input with mobile-first, dark-mode UI
+- Errors handled gracefully
+- Statelss architecture strictly enforced
+- Application fully functional and integrated with backend, MCP, and Neon DB

@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: 99 102 241; /* indigo-500 */
+  --color-primary-foreground: 255 255 255; /* white */
+  --color-secondary: 107 114 128; /* gray-500 */
+  --color-secondary-foreground: 255 255 255; /* white */
+  --color-accent: 139 92 246; /* violet-500 */
+  --color-destructive: 244 63 94; /* rose-500 */
+  --color-destructive-foreground: 255 255 255; /* white */
+  --color-muted: 82 82 91; /* gray-600 */
+  --color-muted-foreground: 163 163 175; /* gray-400 */
+  --color-success: 16 185 129; /* emerald-500 */
+
+  --radius: 0.5rem;
+}
+
+:root {
+  --background: 11 15 25; /* #0B0F19 */
+  --foreground: 229 231 235; /* #E5E7EB */
+  --card: 17 24 39; /* #111827 */
+  --card-foreground: 229 231 235; /* #E5E7EB */
+  --popover: 17 24 39; /* #111827 */
+  --popover-foreground: 229 231 235; /* #E5E7EB */
+  --primary: 99 102 241; /* #6366F1 */
+  --primary-foreground: 255 255 255; /* white */
+  --secondary: 31 41 55; /* #1F2937 */
+  --secondary-foreground: 229 231 235; /* #E5E7EB */
+  --muted: 31 41 55; /* #1F2937 */
+  --muted-foreground: 156 163 175; /* #9CA3AF */
+  --accent: 139 92 246; /* #8B5CF6 */
+  --accent-foreground: 229 231 235; /* #E5E7EB */
+  --destructive: 244 63 94; /* #F43F5E */
+  --destructive-foreground: 255 255 255; /* white */
+  --border: 31 41 55; /* #1F2937 */
+  --input: 31 41 55; /* #1F2937 */
+  --ring: 99 102 241; /* #6366F1 */
+  --radius: 0.5rem;
+}
+
+body {
+  color: rgb(var(--foreground));
+  background: rgb(var(--background));
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Prevent horizontal scrolling on mobile */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Ensure touch targets are large enough */
+@media (max-width: 768px) {
+  button, input, select, textarea {
+    min-height: 44px; /* Minimum touch target size */
+    min-width: 44px;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-down {
+  animation: slideDown 0.2s ease-out forwards;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}

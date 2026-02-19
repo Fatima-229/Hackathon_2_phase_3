@@ -1,0 +1,32 @@
+Todo Full-Stack Web Application — Phase III: AI Chatbot
+
+Target audience: End users of the Todo app who want to manage tasks via natural language.
+Focus: AI-powered conversational interface for task management using MCP tools.
+
+Success criteria:
+- AI agent correctly interprets natural language commands and maps to MCP tool calls
+- Chat maintains conversation context across requests and sessions
+- All CRUD operations (add, list, update, complete, delete) are auditable and confirmable
+- Errors handled gracefully with human-friendly responses
+- Frontend is dark-mode, responsive, mobile-first, and user-friendly
+- All requests authenticated; user isolation enforced
+- Stateless backend architecture strictly enforced
+- AI assistant confirms every action performed via MCP tools
+
+Constraints:
+- Frontend: OpenAI ChatKit UI integrated with FastAPI backend
+- Backend: Python FastAPI with OpenAI Agents SDK and MCP server
+- MCP tools: add_task, list_tasks, complete_task, delete_task, update_task
+- Database: Neon Serverless PostgreSQL (Task, Conversation, Message models)
+- Authentication: Better Auth with JWT tokens
+- Stateless backend (no in-memory conversation state)
+- Chat endpoint: POST /api/{user_id}/chat
+- All AI tool calls must persist data to database
+- No features outside of Phase III scope
+
+Not building:
+- Full AI assistant unrelated to todo tasks
+- Non-task-related AI conversation
+- Manual coding outside the agentic workflow
+- Non-stateless backend logic
+- Alternative authentication methods

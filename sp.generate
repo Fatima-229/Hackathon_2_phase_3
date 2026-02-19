@@ -1,0 +1,56 @@
+Phase III: Todo AI Chatbot Implementation
+
+Project: Todo Full-Stack Web Application — Phase III AI Chatbot
+Specification: Use sp.constitution and sp.specify for guidance
+Plan: Use sp.plan for task breakdown
+
+Objective:
+Implement a fully functional AI-powered Todo Chatbot using ChatKit frontend, FastAPI backend, OpenAI Agents SDK, and MCP server tools. All task operations must go through MCP tools, and the server should remain stateless. Maintain user authentication with Better Auth and store all data in Neon PostgreSQL.
+
+Instructions for Qwen:
+1. Frontend (ChatKit UI)
+   - Create login and signup pages integrated with Better Auth
+   - Implement chat window with message display, input box, and conversation history
+   - Connect to POST /api/{user_id}/chat endpoint with JWT handling
+   - Apply dark-mode styling and mobile-responsive design
+   - Build reusable components: MessageBubble, ChatInput, ChatHeader
+
+2. Backend (FastAPI + Agents SDK)
+   - Implement /api/{user_id}/chat POST endpoint
+   - Integrate OpenAI Agents SDK for AI agent execution
+   - Stateless conversation handling; store messages and conversations in Neon DB
+   - Validate JWT tokens and ensure user isolation
+   - Error handling and action confirmations
+
+3. MCP Server & Tools
+   - Build MCP server exposing tools: add_task, list_tasks, complete_task, delete_task, update_task
+   - Tools must persist state to database only (stateless)
+   - Ensure input/output validation for all tools
+
+4. AI Agent Behavior
+   - Map natural language commands to MCP tools
+   - Confirm actions with friendly responses
+   - Handle errors gracefully
+   - Maintain conversation context via database
+
+5. Database & Models
+   - Task: user_id, id, title, description, completed, created_at, updated_at
+   - Conversation: user_id, id, created_at, updated_at
+   - Message: user_id, id, conversation_id, role, content, created_at
+   - Include migration scripts for Neon PostgreSQL
+
+6. Integration & Testing
+   - Connect frontend to backend chat endpoint
+   - Test full conversation flow (add, list, update, complete, delete tasks)
+   - Verify authentication, user isolation, dark-mode, and mobile responsiveness
+   - Ensure stateless backend handles multiple sessions correctly
+
+Deliverables:
+- Working AI Todo Chatbot fully integrated with existing backend
+- /frontend — ChatKit UI
+- /backend — FastAPI + Agents SDK + MCP
+- /specs — Specification files
+- Database migration scripts
+- README with setup instructions
+- Fully tested and mobile-responsive interface
+- All actions confirmed by AI and errors handled gracefully

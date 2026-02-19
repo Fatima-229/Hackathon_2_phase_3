@@ -1,0 +1,700 @@
+D:\hackathon_2_phase_2\backend\api\v1\tasks.py:20: FastAPIDeprecationWarning: `regex` has been deprecated, please use `pattern` instead
+  priority: Optional[str] = Query(None, regex="^(low|medium|high)$", description="Filter by priority"),
+INFO:     Started server process [14700]
+INFO:     Waiting for application startup.
+2026-02-09 22:16:01,749 INFO sqlalchemy.engine.Engine select pg_catalog.version()
+2026-02-09 22:16:01,749 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-02-09 22:16:02,289 INFO sqlalchemy.engine.Engine select current_schema()
+2026-02-09 22:16:02,289 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-02-09 22:16:02,890 INFO sqlalchemy.engine.Engine show standard_conforming_strings
+2026-02-09 22:16:02,890 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-02-09 22:16:03,335 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:16:03,346 INFO sqlalchemy.engine.Engine SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2026-02-09 22:16:03,347 INFO sqlalchemy.engine.Engine [generated in 0.00050s] {'table_name': 'user', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2026-02-09 22:16:03,804 INFO sqlalchemy.engine.Engine SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2026-02-09 22:16:03,805 INFO sqlalchemy.engine.Engine [cached since 0.4586s ago] {'table_name': 'task', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2026-02-09 22:16:04,999 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8082 (Press CTRL+C to quit)
+2026-02-09 22:16:05,619 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:16:05,644 INFO sqlalchemy.engine.Engine SELECT "user".id, "user".email, "user".hashed_password, "user".created_at 
+FROM "user" 
+WHERE "user".email = %(email_1)s
+2026-02-09 22:16:05,645 INFO sqlalchemy.engine.Engine [generated in 0.00088s] {'email_1': 'testuser@example.com'}
+INFO:     127.0.0.1:60893 - "POST /api/v1/auth/login HTTP/1.1" 200 OK
+2026-02-09 22:16:06,313 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-02-09 22:16:08,357 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:16:08,362 INFO sqlalchemy.engine.Engine SELECT "user".id AS user_id, "user".email AS user_email, "user".hashed_password AS user_hashed_password, "user".created_at AS user_created_at 
+FROM "user" 
+WHERE "user".email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-09 22:16:08,363 INFO sqlalchemy.engine.Engine [generated in 0.00072s] {'email_1': 'testuser@example.com', 'param_1': 1}
+2026-02-09 22:16:08,910 INFO sqlalchemy.engine.Engine INSERT INTO task (title, description, completed, priority, due_date, id, user_id, created_at, updated_at) VALUES (%(title)s, %(description)s, %(completed)s, %(priority)s, %(due_date)s, %(id)s::UUID, %(user_id)s::UUID, %(created_at)s, %(updated_at)s)
+2026-02-09 22:16:08,911 INFO sqlalchemy.engine.Engine [generated in 0.00162s] {'title': 'Test Task', 'description': 'This is a test task', 'completed': False, 'priority': 'medium', 'due_date': None, 'id': UUID('4292e8aa-62ae-4aa4-93b0-3d156de810f3'), 'user_id': UUID('be909f8f-8708-420c-9c4e-08779b2a93da'), 'created_at': datetime.datetime(2026, 2, 9, 17, 16, 8, 879259), 'updated_at': datetime.datetime(2026, 2, 9, 17, 16, 8, 879286)}
+2026-02-09 22:16:09,227 INFO sqlalchemy.engine.Engine COMMIT
+2026-02-09 22:16:09,453 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:16:09,461 INFO sqlalchemy.engine.Engine SELECT task.title, task.description, task.completed, task.priority, task.due_date, task.id, task.user_id, task.created_at, task.updated_at 
+FROM task 
+WHERE task.id = %(pk_1)s::UUID
+2026-02-09 22:16:09,462 INFO sqlalchemy.engine.Engine [generated in 0.00077s] {'pk_1': UUID('4292e8aa-62ae-4aa4-93b0-3d156de810f3')}
+INFO:     127.0.0.1:60939 - "POST /api/v1/tasks/ HTTP/1.1" 200 OK
+2026-02-09 22:16:10,022 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:61197 - "GET /api/v1/tasks HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:61197 - "GET /api/v1/tasks HTTP/1.1" 307 Temporary Redirect
+2026-02-09 22:16:32,691 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:16:32,691 INFO sqlalchemy.engine.Engine SELECT "user".id AS user_id, "user".email AS user_email, "user".hashed_password AS user_hashed_password, "user".created_at AS user_created_at 
+FROM "user" 
+WHERE "user".email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-09 22:16:32,691 INFO sqlalchemy.engine.Engine [cached since 24.33s ago] {'email_1': 'fatima29082003@gmail.com', 'param_1': 1}
+2026-02-09 22:16:33,533 INFO sqlalchemy.engine.Engine SELECT task.title, task.description, task.completed, task.priority, task.due_date, task.id, task.user_id, task.created_at, task.updated_at 
+FROM task 
+WHERE task.user_id = %(user_id_1)s::UUID 
+ LIMIT %(param_1)s OFFSET %(param_2)s
+2026-02-09 22:16:33,533 INFO sqlalchemy.engine.Engine [generated in 0.00073s] {'user_id_1': UUID('13d0e66f-5ed9-4d61-996e-3087498a8453'), 'param_1': 100, 'param_2': 0}
+INFO:     127.0.0.1:61197 - "GET /api/v1/tasks/ HTTP/1.1" 200 OK
+2026-02-09 22:16:34,072 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-02-09 22:16:36,178 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:16:36,179 INFO sqlalchemy.engine.Engine SELECT "user".id AS user_id, "user".email AS user_email, "user".hashed_password AS user_hashed_password, "user".created_at AS user_created_at 
+FROM "user" 
+WHERE "user".email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-09 22:16:36,180 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:16:36,180 INFO sqlalchemy.engine.Engine [cached since 27.82s ago] {'email_1': 'fatima29082003@gmail.com', 'param_1': 1}
+2026-02-09 22:16:36,181 INFO sqlalchemy.engine.Engine SELECT "user".id, "user".email, "user".hashed_password, "user".created_at 
+FROM "user" 
+WHERE "user".email = %(email_1)s
+2026-02-09 22:16:36,181 INFO sqlalchemy.engine.Engine [cached since 30.54s ago] {'email_1': 'fatima29082003@gmail.com'}
+2026-02-09 22:16:37,079 INFO sqlalchemy.engine.Engine SELECT task.title, task.description, task.completed, task.priority, task.due_date, task.id, task.user_id, task.created_at, task.updated_at 
+FROM task 
+WHERE task.user_id = %(user_id_1)s::UUID 
+ LIMIT %(param_1)s OFFSET %(param_2)s
+2026-02-09 22:16:37,080 INFO sqlalchemy.engine.Engine [cached since 3.548s ago] {'user_id_1': UUID('13d0e66f-5ed9-4d61-996e-3087498a8453'), 'param_1': 100, 'param_2': 0}
+INFO:     127.0.0.1:61201 - "POST /api/v1/auth/login HTTP/1.1" 200 OK
+2026-02-09 22:16:37,231 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:61201 - "GET /api/v1/tasks HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:61201 - "GET /api/v1/tasks HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:61197 - "GET /api/v1/tasks/ HTTP/1.1" 200 OK
+2026-02-09 22:16:37,365 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-02-09 22:16:37,390 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:16:37,390 INFO sqlalchemy.engine.Engine SELECT "user".id AS user_id, "user".email AS user_email, "user".hashed_password AS user_hashed_password, "user".created_at AS user_created_at 
+FROM "user" 
+WHERE "user".email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-09 22:16:37,391 INFO sqlalchemy.engine.Engine [cached since 29.03s ago] {'email_1': 'fatima29082003@gmail.com', 'param_1': 1}
+2026-02-09 22:16:38,010 INFO sqlalchemy.engine.Engine SELECT task.title, task.description, task.completed, task.priority, task.due_date, task.id, task.user_id, task.created_at, task.updated_at 
+FROM task 
+WHERE task.user_id = %(user_id_1)s::UUID 
+ LIMIT %(param_1)s OFFSET %(param_2)s
+2026-02-09 22:16:38,011 INFO sqlalchemy.engine.Engine [cached since 4.478s ago] {'user_id_1': UUID('13d0e66f-5ed9-4d61-996e-3087498a8453'), 'param_1': 100, 'param_2': 0}
+INFO:     127.0.0.1:61197 - "GET /api/v1/tasks/ HTTP/1.1" 200 OK
+2026-02-09 22:16:38,315 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-02-09 22:16:38,322 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:16:38,323 INFO sqlalchemy.engine.Engine SELECT "user".id AS user_id, "user".email AS user_email, "user".hashed_password AS user_hashed_password, "user".created_at AS user_created_at 
+FROM "user" 
+WHERE "user".email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-09 22:16:38,323 INFO sqlalchemy.engine.Engine [cached since 29.96s ago] {'email_1': 'fatima29082003@gmail.com', 'param_1': 1}
+2026-02-09 22:16:38,837 INFO sqlalchemy.engine.Engine SELECT task.title, task.description, task.completed, task.priority, task.due_date, task.id, task.user_id, task.created_at, task.updated_at 
+FROM task 
+WHERE task.user_id = %(user_id_1)s::UUID 
+ LIMIT %(param_1)s OFFSET %(param_2)s
+2026-02-09 22:16:38,837 INFO sqlalchemy.engine.Engine [cached since 5.305s ago] {'user_id_1': UUID('13d0e66f-5ed9-4d61-996e-3087498a8453'), 'param_1': 100, 'param_2': 0}
+INFO:     127.0.0.1:61197 - "GET /api/v1/tasks/ HTTP/1.1" 200 OK
+2026-02-09 22:16:39,053 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:61202 - "POST /api/v1/tasks HTTP/1.1" 307 Temporary Redirect
+2026-02-09 22:17:10,475 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:17:10,475 INFO sqlalchemy.engine.Engine SELECT "user".id AS user_id, "user".email AS user_email, "user".hashed_password AS user_hashed_password, "user".created_at AS user_created_at 
+FROM "user" 
+WHERE "user".email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-09 22:17:10,475 INFO sqlalchemy.engine.Engine [cached since 62.11s ago] {'email_1': 'fatima29082003@gmail.com', 'param_1': 1}
+2026-02-09 22:17:10,903 INFO sqlalchemy.engine.Engine INSERT INTO task (title, description, completed, priority, due_date, id, user_id, created_at, updated_at) VALUES (%(title)s, %(description)s, %(completed)s, %(priority)s, %(due_date)s, %(id)s::UUID, %(user_id)s::UUID, %(created_at)s, %(updated_at)s)
+2026-02-09 22:17:10,903 INFO sqlalchemy.engine.Engine [cached since 61.99s ago] {'title': 'hackathon', 'description': 'complete', 'completed': False, 'priority': 'low', 'due_date': datetime.datetime(2026, 3, 29, 0, 0), 'id': UUID('2eebfae8-51c4-4eb9-842e-8acdf2b5e3d3'), 'user_id': UUID('13d0e66f-5ed9-4d61-996e-3087498a8453'), 'created_at': datetime.datetime(2026, 2, 9, 17, 17, 10, 902198), 'updated_at': datetime.datetime(2026, 2, 9, 17, 17, 10, 902205)}
+2026-02-09 22:17:11,155 INFO sqlalchemy.engine.Engine COMMIT
+2026-02-09 22:17:11,383 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:17:11,384 INFO sqlalchemy.engine.Engine SELECT task.title, task.description, task.completed, task.priority, task.due_date, task.id, task.user_id, task.created_at, task.updated_at 
+FROM task 
+WHERE task.id = %(pk_1)s::UUID
+2026-02-09 22:17:11,384 INFO sqlalchemy.engine.Engine [cached since 61.92s ago] {'pk_1': UUID('2eebfae8-51c4-4eb9-842e-8acdf2b5e3d3')}
+INFO:     127.0.0.1:61202 - "POST /api/v1/tasks/ HTTP/1.1" 200 OK
+2026-02-09 22:17:11,908 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:3259 - "OPTIONS /api/v1/tasks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3259 - "POST /api/v1/tasks HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:3259 - "OPTIONS /api/v1/tasks/ HTTP/1.1" 200 OK
+2026-02-09 22:27:07,815 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:27:07,816 INFO sqlalchemy.engine.Engine SELECT "user".id AS user_id, "user".email AS user_email, "user".hashed_password AS user_hashed_password, "user".created_at AS user_created_at 
+FROM "user" 
+WHERE "user".email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-09 22:27:07,817 INFO sqlalchemy.engine.Engine [cached since 659.5s ago] {'email_1': 'fatima29082003@gmail.com', 'param_1': 1}
+INFO:     127.0.0.1:3259 - "POST /api/v1/tasks/ HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: SSL connection has been closed unexpectedly
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 416, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\fastapi\applications.py", line 1138, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\middleware\cors.py", line 95, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\middleware\cors.py", line 153, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\fastapi\routing.py", line 121, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\fastapi\routing.py", line 416, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\fastapi\dependencies\utils.py", line 651, in solve_dependencies
+    solved = await run_in_threadpool(call, **solved_result.values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\anyio\_backends\_asyncio.py", line 2502, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\anyio\_backends\_asyncio.py", line 986, in run
+    result = context.run(func, *args)
+  File "D:\hackathon_2_phase_2\backend\utils\auth.py", line 57, in get_current_user
+    user = session.query(User).filter(User.email == email).first()
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+        params,
+        ^^^^^^^
+        execution_options={"_sa_orm_load_options": self.load_options},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlmodel\orm\session.py", line 142, in execute
+    return super().execute(
+           ~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) SSL connection has been closed unexpectedly
+
+[SQL: SELECT "user".id AS user_id, "user".email AS user_email, "user".hashed_password AS user_hashed_password, "user".created_at AS user_created_at 
+FROM "user" 
+WHERE "user".email = %(email_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'email_1': 'fatima29082003@gmail.com', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+INFO:     127.0.0.1:3264 - "POST /api/v1/tasks HTTP/1.1" 307 Temporary Redirect
+2026-02-09 22:27:12,777 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:27:12,778 INFO sqlalchemy.engine.Engine SELECT "user".id AS user_id, "user".email AS user_email, "user".hashed_password AS user_hashed_password, "user".created_at AS user_created_at 
+FROM "user" 
+WHERE "user".email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-09 22:27:12,778 INFO sqlalchemy.engine.Engine [cached since 664.4s ago] {'email_1': 'fatima29082003@gmail.com', 'param_1': 1}
+2026-02-09 22:27:13,252 INFO sqlalchemy.engine.Engine INSERT INTO task (title, description, completed, priority, due_date, id, user_id, created_at, updated_at) VALUES (%(title)s, %(description)s, %(completed)s, %(priority)s, %(due_date)s, %(id)s::UUID, %(user_id)s::UUID, %(created_at)s, %(updated_at)s)
+2026-02-09 22:27:13,252 INFO sqlalchemy.engine.Engine [cached since 664.3s ago] {'title': 'hackthon', 'description': 'complete', 'completed': False, 'priority': 'medium', 'due_date': datetime.datetime(2026, 2, 5, 0, 0), 'id': UUID('16939bc8-ae9c-4cb6-b3e0-2bdc8fcc0678'), 'user_id': UUID('13d0e66f-5ed9-4d61-996e-3087498a8453'), 'created_at': datetime.datetime(2026, 2, 9, 17, 27, 13, 249893), 'updated_at': datetime.datetime(2026, 2, 9, 17, 27, 13, 249918)}
+2026-02-09 22:27:13,599 INFO sqlalchemy.engine.Engine COMMIT
+2026-02-09 22:27:15,471 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:27:15,472 INFO sqlalchemy.engine.Engine SELECT task.title, task.description, task.completed, task.priority, task.due_date, task.id, task.user_id, task.created_at, task.updated_at 
+FROM task 
+WHERE task.id = %(pk_1)s::UUID
+2026-02-09 22:27:15,473 INFO sqlalchemy.engine.Engine [cached since 666s ago] {'pk_1': UUID('16939bc8-ae9c-4cb6-b3e0-2bdc8fcc0678')}
+INFO:     127.0.0.1:3266 - "POST /api/v1/tasks/ HTTP/1.1" 200 OK
+2026-02-09 22:27:16,055 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:3849 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:4630 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8616 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:9013 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:9128 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:12050 - "OPTIONS /api/v1/auth/login HTTP/1.1" 200 OK
+2026-02-09 22:41:06,972 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:41:06,973 INFO sqlalchemy.engine.Engine SELECT "user".id, "user".email, "user".hashed_password, "user".created_at 
+FROM "user" 
+WHERE "user".email = %(email_1)s
+2026-02-09 22:41:06,973 INFO sqlalchemy.engine.Engine [cached since 1501s ago] {'email_1': 'fatima29082003@gmail.com'}
+2026-02-09 22:41:08,608 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:41:08,609 INFO sqlalchemy.engine.Engine SELECT "user".id, "user".email, "user".hashed_password, "user".created_at 
+FROM "user" 
+WHERE "user".email = %(email_1)s
+2026-02-09 22:41:08,610 INFO sqlalchemy.engine.Engine [cached since 1503s ago] {'email_1': 'fatima29082003@gmail.com'}
+INFO:     127.0.0.1:12055 - "POST /api/v1/auth/login HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: SSL connection has been closed unexpectedly
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 416, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\fastapi\applications.py", line 1138, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\middleware\cors.py", line 95, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\middleware\cors.py", line 153, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\fastapi\routing.py", line 121, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\fastapi\routing.py", line 426, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\fastapi\routing.py", line 316, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\anyio\_backends\_asyncio.py", line 2502, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\anyio\_backends\_asyncio.py", line 986, in run
+    result = context.run(func, *args)
+  File "D:\hackathon_2_phase_2\backend\api\v1\auth.py", line 52, in login
+    user = session.exec(select(User).where(User.email == user_credentials.email)).first()
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlmodel\orm\session.py", line 81, in exec
+    results = super().execute(
+        statement,
+    ...<4 lines>...
+        _add_event=_add_event,
+    )
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Fatima\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) SSL connection has been closed unexpectedly
+
+[SQL: SELECT "user".id, "user".email, "user".hashed_password, "user".created_at 
+FROM "user" 
+WHERE "user".email = %(email_1)s]
+[parameters: {'email_1': 'fatima29082003@gmail.com'}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+INFO:     127.0.0.1:12050 - "POST /api/v1/auth/login HTTP/1.1" 200 OK
+2026-02-09 22:41:08,953 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:12050 - "OPTIONS /api/v1/tasks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:12050 - "GET /api/v1/tasks HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:12050 - "GET /api/v1/tasks HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:12050 - "OPTIONS /api/v1/tasks/ HTTP/1.1" 200 OK
+2026-02-09 22:41:10,791 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:41:10,793 INFO sqlalchemy.engine.Engine SELECT "user".id AS user_id, "user".email AS user_email, "user".hashed_password AS user_hashed_password, "user".created_at AS user_created_at 
+FROM "user" 
+WHERE "user".email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-09 22:41:10,793 INFO sqlalchemy.engine.Engine [cached since 1502s ago] {'email_1': 'fatima29082003@gmail.com', 'param_1': 1}
+2026-02-09 22:41:11,237 INFO sqlalchemy.engine.Engine SELECT task.title, task.description, task.completed, task.priority, task.due_date, task.id, task.user_id, task.created_at, task.updated_at 
+FROM task 
+WHERE task.user_id = %(user_id_1)s::UUID 
+ LIMIT %(param_1)s OFFSET %(param_2)s
+2026-02-09 22:41:11,237 INFO sqlalchemy.engine.Engine [cached since 1478s ago] {'user_id_1': UUID('13d0e66f-5ed9-4d61-996e-3087498a8453'), 'param_1': 100, 'param_2': 0}
+INFO:     127.0.0.1:12050 - "GET /api/v1/tasks/ HTTP/1.1" 200 OK
+2026-02-09 22:41:11,463 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-02-09 22:41:12,824 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:41:12,825 INFO sqlalchemy.engine.Engine SELECT "user".id AS user_id, "user".email AS user_email, "user".hashed_password AS user_hashed_password, "user".created_at AS user_created_at 
+FROM "user" 
+WHERE "user".email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-09 22:41:12,825 INFO sqlalchemy.engine.Engine [cached since 1504s ago] {'email_1': 'fatima29082003@gmail.com', 'param_1': 1}
+2026-02-09 22:41:13,278 INFO sqlalchemy.engine.Engine SELECT task.title, task.description, task.completed, task.priority, task.due_date, task.id, task.user_id, task.created_at, task.updated_at 
+FROM task 
+WHERE task.user_id = %(user_id_1)s::UUID 
+ LIMIT %(param_1)s OFFSET %(param_2)s
+2026-02-09 22:41:13,278 INFO sqlalchemy.engine.Engine [cached since 1480s ago] {'user_id_1': UUID('13d0e66f-5ed9-4d61-996e-3087498a8453'), 'param_1': 100, 'param_2': 0}
+INFO:     127.0.0.1:12050 - "GET /api/v1/tasks/ HTTP/1.1" 200 OK
+2026-02-09 22:41:13,493 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:12097 - "OPTIONS /api/v1/tasks/16939bc8-ae9c-4cb6-b3e0-2bdc8fcc0678 HTTP/1.1" 200 OK
+2026-02-09 22:41:23,438 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:41:23,439 INFO sqlalchemy.engine.Engine SELECT "user".id AS user_id, "user".email AS user_email, "user".hashed_password AS user_hashed_password, "user".created_at AS user_created_at 
+FROM "user" 
+WHERE "user".email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-09 22:41:23,440 INFO sqlalchemy.engine.Engine [cached since 1515s ago] {'email_1': 'fatima29082003@gmail.com', 'param_1': 1}
+2026-02-09 22:41:23,896 INFO sqlalchemy.engine.Engine SELECT task.title AS task_title, task.description AS task_description, task.completed AS task_completed, task.priority AS task_priority, task.due_date AS task_due_date, task.id AS task_id, task.user_id AS task_user_id, task.created_at AS task_created_at, task.updated_at AS task_updated_at 
+FROM task 
+WHERE task.id = %(pk_1)s::UUID
+2026-02-09 22:41:23,896 INFO sqlalchemy.engine.Engine [generated in 0.00033s] {'pk_1': UUID('16939bc8-ae9c-4cb6-b3e0-2bdc8fcc0678')}
+2026-02-09 22:41:24,207 INFO sqlalchemy.engine.Engine DELETE FROM task WHERE task.id = %(id)s::UUID
+2026-02-09 22:41:24,208 INFO sqlalchemy.engine.Engine [generated in 0.00037s] {'id': UUID('16939bc8-ae9c-4cb6-b3e0-2bdc8fcc0678')}
+2026-02-09 22:41:24,433 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:12097 - "DELETE /api/v1/tasks/16939bc8-ae9c-4cb6-b3e0-2bdc8fcc0678 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:12350 - "OPTIONS /api/v1/tasks/2eebfae8-51c4-4eb9-842e-8acdf2b5e3d3 HTTP/1.1" 200 OK
+2026-02-09 22:41:33,475 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:41:33,476 INFO sqlalchemy.engine.Engine SELECT "user".id AS user_id, "user".email AS user_email, "user".hashed_password AS user_hashed_password, "user".created_at AS user_created_at 
+FROM "user" 
+WHERE "user".email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-09 22:41:33,476 INFO sqlalchemy.engine.Engine [cached since 1525s ago] {'email_1': 'fatima29082003@gmail.com', 'param_1': 1}
+2026-02-09 22:41:33,905 INFO sqlalchemy.engine.Engine SELECT task.title AS task_title, task.description AS task_description, task.completed AS task_completed, task.priority AS task_priority, task.due_date AS task_due_date, task.id AS task_id, task.user_id AS task_user_id, task.created_at AS task_created_at, task.updated_at AS task_updated_at 
+FROM task 
+WHERE task.id = %(pk_1)s::UUID
+2026-02-09 22:41:33,906 INFO sqlalchemy.engine.Engine [cached since 10.01s ago] {'pk_1': UUID('2eebfae8-51c4-4eb9-842e-8acdf2b5e3d3')}
+2026-02-09 22:41:34,149 INFO sqlalchemy.engine.Engine UPDATE task SET updated_at=%(updated_at)s WHERE task.id = %(task_id)s::UUID
+2026-02-09 22:41:34,149 INFO sqlalchemy.engine.Engine [generated in 0.00041s] {'updated_at': datetime.datetime(2026, 2, 9, 17, 41, 34, 146877), 'task_id': UUID('2eebfae8-51c4-4eb9-842e-8acdf2b5e3d3')}
+2026-02-09 22:41:34,369 INFO sqlalchemy.engine.Engine COMMIT
+2026-02-09 22:41:34,586 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:41:34,587 INFO sqlalchemy.engine.Engine SELECT task.title, task.description, task.completed, task.priority, task.due_date, task.id, task.user_id, task.created_at, task.updated_at 
+FROM task 
+WHERE task.id = %(pk_1)s::UUID
+2026-02-09 22:41:34,587 INFO sqlalchemy.engine.Engine [cached since 1525s ago] {'pk_1': UUID('2eebfae8-51c4-4eb9-842e-8acdf2b5e3d3')}
+2026-02-09 22:41:34,647 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:41:34,648 INFO sqlalchemy.engine.Engine SELECT "user".id AS user_id, "user".email AS user_email, "user".hashed_password AS user_hashed_password, "user".created_at AS user_created_at 
+FROM "user" 
+WHERE "user".email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-09 22:41:34,648 INFO sqlalchemy.engine.Engine [cached since 1526s ago] {'email_1': 'fatima29082003@gmail.com', 'param_1': 1}
+INFO:     127.0.0.1:12350 - "PUT /api/v1/tasks/2eebfae8-51c4-4eb9-842e-8acdf2b5e3d3 HTTP/1.1" 200 OK
+2026-02-09 22:41:35,088 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-02-09 22:41:35,099 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:41:35,100 INFO sqlalchemy.engine.Engine SELECT "user".id AS user_id, "user".email AS user_email, "user".hashed_password AS user_hashed_password, "user".created_at AS user_created_at 
+FROM "user" 
+WHERE "user".email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-09 22:41:35,100 INFO sqlalchemy.engine.Engine [cached since 1527s ago] {'email_1': 'fatima29082003@gmail.com', 'param_1': 1}
+2026-02-09 22:41:35,117 INFO sqlalchemy.engine.Engine SELECT task.title AS task_title, task.description AS task_description, task.completed AS task_completed, task.priority AS task_priority, task.due_date AS task_due_date, task.id AS task_id, task.user_id AS task_user_id, task.created_at AS task_created_at, task.updated_at AS task_updated_at 
+FROM task 
+WHERE task.id = %(pk_1)s::UUID
+2026-02-09 22:41:35,117 INFO sqlalchemy.engine.Engine [cached since 11.22s ago] {'pk_1': UUID('2eebfae8-51c4-4eb9-842e-8acdf2b5e3d3')}
+2026-02-09 22:41:35,347 INFO sqlalchemy.engine.Engine UPDATE task SET updated_at=%(updated_at)s WHERE task.id = %(task_id)s::UUID
+2026-02-09 22:41:35,347 INFO sqlalchemy.engine.Engine [cached since 1.198s ago] {'updated_at': datetime.datetime(2026, 2, 9, 17, 41, 35, 346416), 'task_id': UUID('2eebfae8-51c4-4eb9-842e-8acdf2b5e3d3')}
+2026-02-09 22:41:35,596 INFO sqlalchemy.engine.Engine COMMIT
+2026-02-09 22:41:35,599 INFO sqlalchemy.engine.Engine SELECT task.title AS task_title, task.description AS task_description, task.completed AS task_completed, task.priority AS task_priority, task.due_date AS task_due_date, task.id AS task_id, task.user_id AS task_user_id, task.created_at AS task_created_at, task.updated_at AS task_updated_at 
+FROM task 
+WHERE task.id = %(pk_1)s::UUID
+2026-02-09 22:41:35,599 INFO sqlalchemy.engine.Engine [cached since 11.7s ago] {'pk_1': UUID('2eebfae8-51c4-4eb9-842e-8acdf2b5e3d3')}
+2026-02-09 22:41:35,815 INFO sqlalchemy.engine.Engine UPDATE task SET updated_at=%(updated_at)s WHERE task.id = %(task_id)s::UUID
+2026-02-09 22:41:35,815 INFO sqlalchemy.engine.Engine [cached since 1.666s ago] {'updated_at': datetime.datetime(2026, 2, 9, 17, 41, 35, 814484), 'task_id': UUID('2eebfae8-51c4-4eb9-842e-8acdf2b5e3d3')}
+2026-02-09 22:41:35,823 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:41:35,823 INFO sqlalchemy.engine.Engine SELECT task.title, task.description, task.completed, task.priority, task.due_date, task.id, task.user_id, task.created_at, task.updated_at 
+FROM task 
+WHERE task.id = %(pk_1)s::UUID
+2026-02-09 22:41:35,824 INFO sqlalchemy.engine.Engine [cached since 1526s ago] {'pk_1': UUID('2eebfae8-51c4-4eb9-842e-8acdf2b5e3d3')}
+2026-02-09 22:41:36,027 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:12354 - "PUT /api/v1/tasks/2eebfae8-51c4-4eb9-842e-8acdf2b5e3d3 HTTP/1.1" 200 OK
+2026-02-09 22:41:36,237 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-02-09 22:41:36,242 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:41:36,243 INFO sqlalchemy.engine.Engine SELECT task.title, task.description, task.completed, task.priority, task.due_date, task.id, task.user_id, task.created_at, task.updated_at 
+FROM task 
+WHERE task.id = %(pk_1)s::UUID
+2026-02-09 22:41:36,243 INFO sqlalchemy.engine.Engine [cached since 1527s ago] {'pk_1': UUID('2eebfae8-51c4-4eb9-842e-8acdf2b5e3d3')}
+2026-02-09 22:41:36,246 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:41:36,247 INFO sqlalchemy.engine.Engine SELECT "user".id AS user_id, "user".email AS user_email, "user".hashed_password AS user_hashed_password, "user".created_at AS user_created_at 
+FROM "user" 
+WHERE "user".email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-09 22:41:36,247 INFO sqlalchemy.engine.Engine [cached since 1528s ago] {'email_1': 'fatima29082003@gmail.com', 'param_1': 1}
+2026-02-09 22:41:36,727 INFO sqlalchemy.engine.Engine SELECT task.title AS task_title, task.description AS task_description, task.completed AS task_completed, task.priority AS task_priority, task.due_date AS task_due_date, task.id AS task_id, task.user_id AS task_user_id, task.created_at AS task_created_at, task.updated_at AS task_updated_at 
+FROM task 
+WHERE task.id = %(pk_1)s::UUID
+2026-02-09 22:41:36,727 INFO sqlalchemy.engine.Engine [cached since 12.83s ago] {'pk_1': UUID('2eebfae8-51c4-4eb9-842e-8acdf2b5e3d3')}
+INFO:     127.0.0.1:12350 - "PUT /api/v1/tasks/2eebfae8-51c4-4eb9-842e-8acdf2b5e3d3 HTTP/1.1" 200 OK
+2026-02-09 22:41:36,730 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-02-09 22:41:36,941 INFO sqlalchemy.engine.Engine UPDATE task SET updated_at=%(updated_at)s WHERE task.id = %(task_id)s::UUID
+2026-02-09 22:41:36,941 INFO sqlalchemy.engine.Engine [cached since 2.793s ago] {'updated_at': datetime.datetime(2026, 2, 9, 17, 41, 36, 940752), 'task_id': UUID('2eebfae8-51c4-4eb9-842e-8acdf2b5e3d3')}
+2026-02-09 22:41:37,160 INFO sqlalchemy.engine.Engine COMMIT
+2026-02-09 22:41:37,477 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:41:37,478 INFO sqlalchemy.engine.Engine SELECT task.title, task.description, task.completed, task.priority, task.due_date, task.id, task.user_id, task.created_at, task.updated_at 
+FROM task 
+WHERE task.id = %(pk_1)s::UUID
+2026-02-09 22:41:37,478 INFO sqlalchemy.engine.Engine [cached since 1528s ago] {'pk_1': UUID('2eebfae8-51c4-4eb9-842e-8acdf2b5e3d3')}
+INFO:     127.0.0.1:12354 - "PUT /api/v1/tasks/2eebfae8-51c4-4eb9-842e-8acdf2b5e3d3 HTTP/1.1" 200 OK
+2026-02-09 22:41:37,958 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:12354 - "OPTIONS /api/v1/tasks/2eebfae8-51c4-4eb9-842e-8acdf2b5e3d3/complete HTTP/1.1" 200 OK
+2026-02-09 22:41:38,803 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:41:38,804 INFO sqlalchemy.engine.Engine SELECT "user".id AS user_id, "user".email AS user_email, "user".hashed_password AS user_hashed_password, "user".created_at AS user_created_at 
+FROM "user" 
+WHERE "user".email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-09 22:41:38,804 INFO sqlalchemy.engine.Engine [cached since 1530s ago] {'email_1': 'fatima29082003@gmail.com', 'param_1': 1}
+2026-02-09 22:41:39,283 INFO sqlalchemy.engine.Engine SELECT task.title AS task_title, task.description AS task_description, task.completed AS task_completed, task.priority AS task_priority, task.due_date AS task_due_date, task.id AS task_id, task.user_id AS task_user_id, task.created_at AS task_created_at, task.updated_at AS task_updated_at 
+FROM task 
+WHERE task.id = %(pk_1)s::UUID
+2026-02-09 22:41:39,283 INFO sqlalchemy.engine.Engine [cached since 15.39s ago] {'pk_1': UUID('2eebfae8-51c4-4eb9-842e-8acdf2b5e3d3')}
+2026-02-09 22:41:39,513 INFO sqlalchemy.engine.Engine UPDATE task SET completed=%(completed)s, updated_at=%(updated_at)s WHERE task.id = %(task_id)s::UUID
+2026-02-09 22:41:39,513 INFO sqlalchemy.engine.Engine [generated in 0.00053s] {'completed': True, 'updated_at': datetime.datetime(2026, 2, 9, 17, 41, 39, 511494), 'task_id': UUID('2eebfae8-51c4-4eb9-842e-8acdf2b5e3d3')}
+2026-02-09 22:41:39,740 INFO sqlalchemy.engine.Engine COMMIT
+2026-02-09 22:41:39,971 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:41:39,971 INFO sqlalchemy.engine.Engine SELECT task.title, task.description, task.completed, task.priority, task.due_date, task.id, task.user_id, task.created_at, task.updated_at 
+FROM task 
+WHERE task.id = %(pk_1)s::UUID
+2026-02-09 22:41:39,971 INFO sqlalchemy.engine.Engine [cached since 1531s ago] {'pk_1': UUID('2eebfae8-51c4-4eb9-842e-8acdf2b5e3d3')}
+INFO:     127.0.0.1:12354 - "PATCH /api/v1/tasks/2eebfae8-51c4-4eb9-842e-8acdf2b5e3d3/complete HTTP/1.1" 200 OK
+2026-02-09 22:41:40,418 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-02-09 22:41:40,424 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:41:40,425 INFO sqlalchemy.engine.Engine SELECT "user".id AS user_id, "user".email AS user_email, "user".hashed_password AS user_hashed_password, "user".created_at AS user_created_at 
+FROM "user" 
+WHERE "user".email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-09 22:41:40,425 INFO sqlalchemy.engine.Engine [cached since 1532s ago] {'email_1': 'fatima29082003@gmail.com', 'param_1': 1}
+2026-02-09 22:41:40,846 INFO sqlalchemy.engine.Engine SELECT task.title AS task_title, task.description AS task_description, task.completed AS task_completed, task.priority AS task_priority, task.due_date AS task_due_date, task.id AS task_id, task.user_id AS task_user_id, task.created_at AS task_created_at, task.updated_at AS task_updated_at 
+FROM task 
+WHERE task.id = %(pk_1)s::UUID
+2026-02-09 22:41:40,846 INFO sqlalchemy.engine.Engine [cached since 16.95s ago] {'pk_1': UUID('2eebfae8-51c4-4eb9-842e-8acdf2b5e3d3')}
+2026-02-09 22:41:41,062 INFO sqlalchemy.engine.Engine UPDATE task SET updated_at=%(updated_at)s WHERE task.id = %(task_id)s::UUID
+2026-02-09 22:41:41,063 INFO sqlalchemy.engine.Engine [cached since 6.914s ago] {'updated_at': datetime.datetime(2026, 2, 9, 17, 41, 41, 62237), 'task_id': UUID('2eebfae8-51c4-4eb9-842e-8acdf2b5e3d3')}
+2026-02-09 22:41:41,271 INFO sqlalchemy.engine.Engine COMMIT
+2026-02-09 22:41:41,482 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-09 22:41:41,483 INFO sqlalchemy.engine.Engine SELECT task.title, task.description, task.completed, task.priority, task.due_date, task.id, task.user_id, task.created_at, task.updated_at 
+FROM task 
+WHERE task.id = %(pk_1)s::UUID
+2026-02-09 22:41:41,483 INFO sqlalchemy.engine.Engine [cached since 1532s ago] {'pk_1': UUID('2eebfae8-51c4-4eb9-842e-8acdf2b5e3d3')}
+INFO:     127.0.0.1:12354 - "PUT /api/v1/tasks/2eebfae8-51c4-4eb9-842e-8acdf2b5e3d3 HTTP/1.1" 200 OK
+2026-02-09 22:41:41,967 INFO sqlalchemy.engine.Engine ROLLBACK

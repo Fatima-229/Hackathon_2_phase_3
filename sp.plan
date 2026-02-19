@@ -1,0 +1,82 @@
+Phase III: Todo AI Chatbot — Updated Task Breakdown
+
+**Current State Analysis:**
+- Backend: FastAPI with auth and tasks API already implemented, using SQLModel/SQLite
+- Frontend: Next.js with auth flows, dashboard, and task management UI already implemented
+- Both use JWT authentication and have proper user isolation
+
+**Frontend Tasks (ChatKit UI)**
+1. Create new chat page at /app/chat/page.tsx
+2. Implement ChatKit-based chat interface with conversation history
+3. Build reusable components:
+   - MessageBubble (user vs assistant)
+   - ChatInput with send button
+   - ChatHeader showing user info and conversation title
+4. Implement JWT token handling for chat API requests
+5. Add dark-mode styling consistent with existing UI
+6. Ensure responsive design for mobile and desktop
+7. Integrate with existing AuthProvider for authentication state
+8. Add navigation link to chat in the existing Navbar
+
+**Backend Tasks (FastAPI + Agents SDK)**
+1. Install required dependencies: openai, python-multipart, and any other needed packages
+2. Create new models for Conversation and Message in /backend/models/
+   - Conversation: id, user_id, created_at, updated_at
+   - Message: id, conversation_id, user_id, role, content, created_at
+3. Implement JWT token verification middleware for chat endpoint
+4. Create /api/v1/chat/{user_id}/ route in a new router file
+5. Integrate OpenAI Agents SDK to handle agent execution
+6. Implement stateless handling of conversations (no in-memory state)
+7. Store conversations and messages in database (SQLModel/PostgreSQL)
+8. Handle error scenarios and return meaningful messages
+9. Ensure all operations are tied to authenticated user
+
+**MCP Server & Tools Tasks**
+1. Create MCP server implementation in /backend/mcp/
+2. Create MCP tools that connect to existing task operations:
+   - add_task: calls existing create_task endpoint
+   - list_tasks: calls existing get_tasks endpoint
+   - complete_task: calls existing toggle_task_completion endpoint
+   - delete_task: calls existing delete_task endpoint
+   - update_task: calls existing update_task endpoint
+3. Ensure tools validate inputs and outputs
+4. Ensure tools maintain state only in database (stateless)
+5. Provide clear success/failure responses for agent actions
+
+**AI Agent Behavior Tasks**
+1. Configure OpenAI agent with proper system prompt for task management
+2. Map natural language commands to appropriate MCP tools
+3. Implement confirmation responses for all actions
+4. Handle error scenarios gracefully (task not found, invalid params)
+5. Maintain conversation context using database-stored messages
+6. Ensure AI agent only operates within scope of todo tasks
+
+**Database Migration Tasks**
+1. Update existing database models to support Conversation and Message entities
+2. Create migration scripts to add new tables to existing database
+3. Ensure foreign key relationships are properly defined
+4. Test database operations for integrity
+
+**Integration & Testing Tasks**
+1. Connect frontend ChatKit UI to new backend chat endpoint
+2. Test full conversation flow:
+   - Add task via chat
+   - List tasks via chat
+   - Update task via chat
+   - Complete task via chat
+   - Delete task via chat
+3. Validate authentication and user isolation in chat context
+4. Test mobile responsiveness and dark-mode consistency
+5. Verify stateless backend handles multiple concurrent chat sessions
+6. Test error handling and edge cases
+
+**Deliverables**
+- Fully functional AI Chatbot integrated with existing Todo app
+- GitHub repository with:
+   /frontend — ChatKit UI integrated with existing components
+   /backend — FastAPI + Agents SDK + MCP tools
+   /specs — Specification files (sp.constitution, sp.specify, sp.plan, sp.generate)
+   Database migration scripts
+- README with setup instructions for new chat functionality
+- Working stateless conversation with confirmation messages and error handling
+- Consistent UI/UX with existing application design
